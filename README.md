@@ -106,21 +106,21 @@ Below is the complete list of available options that can be used to customize yo
 
 #### Container Options
 
-| Variable                    | Description                                                                       | Default       | `_FILE` |
-| --------------------------- | --------------------------------------------------------------------------------- | ------------- | ------- |
-| `ADMIN_USER`                | ESPHome Dashboard Admin User                                                      |               | x       |
-| `ADMIN_PASS`                | ESPHome Dashboard Admin Pass                                                      |               | x       |
-| `CACHE_PATH`                | Cache Directory                                                                   | `/cache/`     |         |
-| `CACHE_RETAIN`              | Retain Cache `runtime` each boot, `minor` version upgrades, or `major` versions   | `major`       |         |
-| `CONFIG_PATH`               | Configuration directory                                                           | `/config/`    |         |
-| `ENABLE_NGINX`              | Enable Nginx Frontend webserver                                                   | `TRUE`        |         |
-| `ENABLE_CROSS_ORIGIN_CHECK` | Enable Cross Origin Checking for websockets - Danger if disabled!                 | `TRUE`        |         |
-| `LISTEN_IP`                 | Bind IP                                                                           | `0.0.0.0`     |         |
-| `LISTEN_PORT`               | Listening Port                                                                    | `6052`        |         |
-| `LOG_FILE`                  | Log File                                                                          | `esphome.log` |         |
-| `LOG_PATH`                  | Log Path                                                                          | `/logs/`      |         |
-| `LOG_TYPE`                  | Log to `console`, `file`, `both`, or `none`                                       | `FILE`        |         |
-| `PROXY_PORT`                | Origin port for nginx proxy Host header, usually `80` or `443`                    | `443`         |         |
+| Variable                    | Description                                                                     | Default       | `_FILE` |
+| --------------------------- | ------------------------------------------------------------------------------- | ------------- | ------- |
+| `ADMIN_USER`                | ESPHome Dashboard Admin User                                                    |               | x       |
+| `ADMIN_PASS`                | ESPHome Dashboard Admin Pass                                                    |               | x       |
+| `CACHE_PATH`                | Cache Directory                                                                 | `/cache/`     |         |
+| `CACHE_RETAIN`              | Retain Cache `runtime` each boot, `minor` version upgrades, or `major` versions | `major`       |         |
+| `CONFIG_PATH`               | Configuration directory                                                         | `/config/`    |         |
+| `ENABLE_NGINX`              | Enable Nginx Frontend webserver                                                 | `TRUE`        |         |
+| `ENABLE_CROSS_ORIGIN_CHECK` | Enable Cross Origin Checking for websockets - Danger if disabled!               | `TRUE`        |         |
+| `LISTEN_IP`                 | Bind IP                                                                         | `0.0.0.0`     |         |
+| `LISTEN_PORT`               | Listening Port                                                                  | `6052`        |         |
+| `LOG_FILE`                  | Log File                                                                        | `esphome.log` |         |
+| `LOG_PATH`                  | Log Path                                                                        | `/logs/`      |         |
+| `LOG_TYPE`                  | Log to `console`, `file`, `both`, or `none`                                     | `FILE`        |         |
+| `PROXY_PORT`                | Origin port for nginx proxy Host header, usually `80` or `443`                  | `443`         |         |
 
 ## Users and Groups
 
@@ -131,9 +131,9 @@ Below is the complete list of available options that can be used to customize yo
 
 ### Networking
 
-| Port   | Protocol | Description          |
-| ------ | -------- | -------------------- |
-| `80`   | `tcp`    | Nginx                |
+| Port   | Protocol | Description           |
+| ------ | -------- | --------------------- |
+| `80`   | `tcp`    | Nginx                 |
 | `6052` | `tcp`    | ESPHome Web Interface |
 
 * * *
