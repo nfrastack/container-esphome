@@ -1,4 +1,6 @@
-#!/command/with-contenv bash
+# SPDX-FileCopyrightText: © 2026 Nfrastack <code@nfrastack.com>
+#
+# SPDX-License-Identifier: MIT
 
 ADMIN_PASS=${ADMIN_PASS:-""}
 ADMIN_USER=${ADMIN_USER:-""}
@@ -6,7 +8,6 @@ CACHE_PATH=${CACHE_PATH:-"/cache/"}
 CACHE_RETAIN=${CACHE_RETAIN:-"major"}
 CONFIG_PATH=${CONFIG_PATH:-"/config/"}
 ENABLE_CROSS_ORIGIN_CHECK=${ENABLE_CROSS_ORIGIN_CHECK:-"TRUE"}
-ENABLE_NGINX=${ENABLE_NGINX:-"TRUE"}
 LISTEN_IP=${LISTEN_IP:-"0.0.0.0"}
 LISTEN_PORT=${LISTEN_PORT:-"6052"}
 LOG_FILE=${LOG_FILE:-"esphome.log"}

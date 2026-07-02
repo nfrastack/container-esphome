@@ -1,8 +1,10 @@
 #!/command/with-contenv bash
+# SPDX-FileCopyrightText: © 2026 Nfrastack <code@nfrastack.com>
+#
+# SPDX-License-Identifier: MIT
 
-source /assets/functions/00-container
-prepare_service defaults single
-PROCESS_NAME="esphome"
+source /container/base/functions/container/init
+prepare_service 20-esphome
 
 check_container_initialized
 check_service_initialized init
@@ -35,11 +37,12 @@ case "${LOG_TYPE,,}" in
 esac
 
 liftoff
+
 print_start "Starting ESPHome ${ESPHOME_VERSION}"
-su "${ESPHOME_USER}" -c "python3 \
-                            -m venv /opt/esphome"
-su "${ESPHOME_USER}" -c "esphome \
-                            dashboard \
-                            --address ${LISTEN_IP} \
-                            --port ${LISTEN_PORT} \
-                            ${_esphome_admin_credentials} ${CONFIG_PATH}" 2>&1 1>> "${LOG_PATH}"/"${LOG_FILE}" |  silent sudo -u esphome tee -a "${LOG_PATH}"/"${LOG_FILE}"
+source /opt/esphome/bin/activate
+export HOME=${CACHE_PATH%/}
+exec s6-setuidgid "${ESPHOME_USER}" esphome \
+                                            dashboard \
+                                            --address "${LISTEN_IP}" \
+                                            --port "${LISTEN_PORT}" \
+                                            ${_esphome_admin_credentials} "${CONFIG_PATH}"

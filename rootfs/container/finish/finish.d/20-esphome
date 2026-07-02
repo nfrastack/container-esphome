@@ -1,0 +1,16 @@
+#!/command/with-contenv bash
+# SPDX-FileCopyrightText: © 2026 Nfrastack <code@nfrastack.com>
+#
+# SPDX-License-Identifier: MIT
+
+source /container/base/functions/container/init
+set -a
+source /container/defaults/20-esphome
+set +a
+
+if [ "${CACHE_RETAIN,,}" = "runtime" ]; then
+    print_debug "Deleting cache"
+    rm -rf  \
+            "${CACHE_PATH}"/.cache \
+            "${CACHE_PATH}"/.platformio
+fi

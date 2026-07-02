@@ -1,22 +1,20 @@
-bootstrap_filesystem() {
-    if [ ! -d "${CACHE_PATH}" ]; then
-        mkdir -p "${CACHE_PATH}"
-    fi
-    if [ "$(stat -c %U "${CACHE_PATH}")" != "${ESPHOME_USER}" ] ; then chown "${ESPHOME_USER}":"${ESPHOME_GROUP}" "${CACHE_PATH}" ; fi
-    ln -sf "${CACHE_PATH%/}" /var/lib/esphome
+# SPDX-FileCopyrightText: © 2026 Nfrastack <code@nfrastack.com>
+#
+# SPDX-License-Identifier: MIT
 
-    if [ ! -d "${CONFIG_PATH}" ]; then
-        mkdir -p "${CONFIG_PATH}"
-    fi
-    if [ "$(stat -c %U "${CONFIG_PATH}")" != "${ESPHOME_USER}" ] ; then chown -R "${ESPHOME_USER}":"${ESPHOME_GROUP}" "${CONFIG_PATH}" ; fi
+esphome_bootstrap_filesystem() {
+    create_folder \
+                    "${CACHE_PATH}, \
+                    ${CONFIG_PATH}, \
+                    ${LOG_PATH}" \
+                    "${ESPHOME_USER}:${ESPHOME_GROUP}" 755
 
-    if [ ! -d "${LOG_PATH}" ]; then
-        mkdir -p "${LOG_PATH}"
+    if [ "${CACHE_PATH%/}" != "/var/lib/esphome" ]; then
+        ln -sf "${CACHE_PATH%/}" /var/lib/esphome
     fi
-    if [ "$(stat -c %U "${LOG_PATH}")" != "${ESPHOME_USER}" ] ; then chown -R "${ESPHOME_USER}":"${ESPHOME_GROUP}" "${LOG_PATH}" ; fi
 }
 
-configure_cache() {
+esphome_configure_cache() {
     touch "${CONFIG_PATH}"/.version
     if [ ! -s "${CONFIG_PATH}"/.version ]; then
         echo "${ESPHOME_VERSION} first installed on $(TZ=${TIMEZONE} date +'%Y-%m-%d %H:%M:%S %Z')" > "${CONFIG_PATH}".version
@@ -56,32 +54,23 @@ configure_cache() {
     chown -R root:root "${CONFIG_PATH}"/.version
 }
 
-configure_logging() {
+esphome_configure_logging() {
     if [ "${LOG_TYPE,,}" = "file" ] || [ "${LOG_TYPE,,}" = "both" ]; then
         create_logrotate esphome "${LOG_PATH}"/"${LOG_FILE}" esphome "${ESPHOME_USER}" "${ESPHOME_GROUP}"
     fi
 }
 
-configure_proxy() {
-    if var_false "${ENABLE_NGINX}" ; then
-    	print_warn "Disabling Nginx - Using ESPHome in place server - Be sure to set Authentication!"
-	    service_stop 10-nginx
-    else
-        sed -i \
-                -e "s|{{LISTEN_PORT}}|${LISTEN_PORT}|g" \
-                -e "s|{{PROXY_PORT}}|${PROXY_PORT}|g" \
-            /etc/nginx/sites.available/"${NGINX_SITE_ENABLED}".conf
-
-        if var_false "${ENABLE_CROSS_ORIGIN_CHECK}" ; then
-            sed -i \
-                    -e "s|return origin == host|return True|g" \
-                    /opt/esphome/lib/python"$(python3 --version | awk '{print $2}' | cut -d . -f 1-2)"/site-packages/tornado/websocket.py
+esphome_configure_proxy() {
+    if var_false "${ENABLE_CROSS_ORIGIN_CHECK}" ; then
+        local _tornado_path="/opt/esphome/lib/python$(python3 --version | awk '{print $2}' | cut -d . -f 1-2)/site-packages/tornado/websocket.py"
+        if [ -f "${_tornado_path}" ]; then
+            print_notice "Disabling Cross Origin Check for ESPHome Websockets"
+            sed -i -e "s|return origin == host|return True|g" "${_tornado_path}"
         fi
-
     fi
 }
 
-configure_settings() {
+esphome_configure_settings() {
     silent sudo -u "${ESPHOME_USER}" git config --global advice.detachedHead false
     silent sudo -u "${ESPHOME_USER}" platformio settings set enable_telemetry No
     silent sudo -u "${ESPHOME_USER}" platformio settings set check_platformio_interval 1000000

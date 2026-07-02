@@ -1,3 +1,10 @@
+## 2026.6.4 2026-07-01 <dave at tiredofit dot ca>
+
+   ### Added
+      - ESPHome 2026.6.4
+      - Switch to nfrastack base
+
+
 ## 1.3.52 2025-08-16 <dave at tiredofit dot ca>
 
    ### Added

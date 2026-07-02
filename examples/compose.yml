@@ -1,12 +1,8 @@
 services:
 
   esphome-app:
-    image: tiredofit/esphome
+    image: docker.io/nfrastack/esphome
     container_name: esphome-app
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.esphome-app.rule=Host(`esphome.example.com`)
-      - traefik.http.services.esphome-app.loadbalancer.server.port=80
     ports:
       - 6052:6052
     volumes:
@@ -15,11 +11,9 @@ services:
       - ./logs:/logs
     environment:
       - TIMEZONE=America/Vancouver
-      - CONTAINER_NAME=esphome-app
-
-      - ENABLE_NGINX=TRUE
+      - ENABLE_NGINX=FALSE
       - ADMIN_USER=esphome
-      - ADMIN_PASS=tiredofit
+      - ADMIN_PASS=nfrastack
     networks:
       - services
     restart: always
