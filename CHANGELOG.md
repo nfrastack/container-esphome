@@ -1,3 +1,9 @@
+## 2026.6.5 2026-07-08 <code at nfrastack dot com>
+
+   ### Added
+      - ESPHome 2026.6.5
+
+
 ## 2026.6.4 2026-07-01 <dave at tiredofit dot ca>
 
    ### Added

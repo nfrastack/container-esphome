@@ -18,7 +18,7 @@ LABEL \
         org.opencontainers.image.licenses="MIT"
 
 ARG \
-    ESPHOME_VERSION="2026.6.4" \
+    ESPHOME_VERSION="2026.6.5" \
     ESPHOME_REPO_URL="https://github.com/esphome/esphome" \
     PYTHON_VERSION="3.14"
 
@@ -34,12 +34,6 @@ ENV \
     PATH="/opt/esphome/bin:$PATH" \
     IMAGE_NAME="nfrastack/esphome" \
     IMAGE_REPO_URL="https://github.com/nfrastack/container-esphome/"
-    #NGINX_ENABLE_CREATE_SAMPLE_HTML=FALSE \
-    #NGINX_LOG_ACCESS_LOCATION=/logs/nginx \
-    #NGINX_LOG_ERROR_LOCATION=/logs/nginx \
-    #NGINX_PROXY_BUFFERS="12 256k" \
-    #NGINX_WEBROOT=/var/lib/nginx/wwwroot \
-    #NGINX_WORKER_PROCESSES=1 \
 
 EXPOSE 6052
 
