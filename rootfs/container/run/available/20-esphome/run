@@ -9,8 +9,11 @@ prepare_service 20-esphome
 check_container_initialized
 check_service_initialized init
 
-if [ -n "${ADMIN_USER}" ] && [ -n "${ADMIN_PASS}" ]; then
-    _esphome_admin_credentials="--username ${ADMIN_USER} --password ${ADMIN_PASS}"
+if [ -z "${ESPHOME_USERNAME}" ] && [ -n "${ADMIN_USER}" ]; then
+    export ESPHOME_USERNAME="${ADMIN_USER}"
+fi
+if [ -z "${ESPHOME_PASSWORD}" ] && [ -n "${ADMIN_PASS}" ]; then
+    export ESPHOME_PASSWORD="${ADMIN_PASS}"
 fi
 
 case "${LOG_TYPE,,}" in
@@ -41,8 +44,8 @@ liftoff
 print_start "Starting ESPHome ${ESPHOME_VERSION}"
 source /opt/esphome/bin/activate
 export HOME=${CACHE_PATH%/}
-exec s6-setuidgid "${ESPHOME_USER}" esphome \
-                                            dashboard \
-                                            --address "${LISTEN_IP}" \
+exec s6-setuidgid "${ESPHOME_USER}" \
+                                            /opt/esphome/bin/esphome-device-builder \
+                                            --host "${LISTEN_IP}" \
                                             --port "${LISTEN_PORT}" \
-                                            ${_esphome_admin_credentials} "${CONFIG_PATH}"
+                                            "${CONFIG_PATH}"
