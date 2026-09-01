@@ -18,7 +18,7 @@ LABEL \
         org.opencontainers.image.licenses="MIT"
 
 ARG \
-    ESPHOME_VERSION="2026.8.1" \
+    ESPHOME_VERSION="2026.8.2" \
     ESPHOME_REPO_URL="https://github.com/esphome/esphome" \
     PYTHON_VERSION="3.14"
 
