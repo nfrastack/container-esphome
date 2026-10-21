@@ -18,7 +18,7 @@ LABEL \
         org.opencontainers.image.licenses="MIT"
 
 ARG \
-    ESPHOME_VERSION="2026.9.1" \
+    ESPHOME_VERSION="2026.10.0" \
     ESPHOME_REPO_URL="https://github.com/esphome/esphome" \
     PYTHON_VERSION="3.14"
 
@@ -102,7 +102,6 @@ RUN echo "" && \
     platformio settings set enable_telemetry No && \
     platformio settings set check_platformio_interval 1000000 && \
     mkdir -p /piolibs && \
-    /opt/esphome/bin/python3 script/platformio_install_deps.py platformio.ini --libraries && \
     \
     container_build_log add "ESPHome" "${ESPHOME_VERSION}" "${ESPHOME_REPO_URL}" && \
     \
