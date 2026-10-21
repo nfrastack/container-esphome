@@ -1,3 +1,8 @@
+## 2026.9.1 2026-10-20 <code at nfrastack dot com>
+
+   ### Added
+      - ESPHome 2026.9.1
+
 ## 2026.9.0 2026-09-16 <code at nfrastack dot com>
 
    ### Added
