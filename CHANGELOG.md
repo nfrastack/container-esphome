@@ -1,4 +1,4 @@
-## 2026.10.0 2026-10-26 <code at nfrastack dot com>
+## 2026.10.0 2026-10-21 <code at nfrastack dot com>
 
    ### Added
       - ESPHome 2026.10.0
